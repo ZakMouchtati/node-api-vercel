@@ -1,50 +1,49 @@
-const express = require('express')
-const venom = require('venom-bot')
-const { createServer } = require("http")
-const { Server } = require("socket.io")
-const app = express()
-const PORT = 4000
-const httpServer = createServer(app);
+const express = require("express");
+const { createServer } = require("http");
+const { Server } = require("socket.io");
+const venom = require('venom-bot');
 const cors = require('cors')
+const path = require('path')
+
+const app = express();
+const httpServer = createServer(app);
 
 
 const io = new Server(httpServer, {
-    cors: {
-      origin: "http://localhost:8000",
-      // or with an array of origins
-      //   origin: ["http://127.0.0.1:5500", "http://localhost:3000"],
-      credentials: true
-    }
-  })
-  
-
-
-
-app.listen(PORT, () => {
-  console.log(`API listening on PORT ${PORT} `)
+  cors: {
+    origin: "https://harmonious-fox-9a8089.netlify.app",
+    // or with an array of origins
+    //   origin: ["http://127.0.0.1:5500", "http://localhost:3000"],
+    credentials: true
+  }
 })
-app.use(cors())
+
+app.use(express.json());
+
+app.use(cors());
+
+let client = []
 
 app.get('/', (req, res) => {
-    const channelKey = Math.random().toString(36).substr(2)
-    res.json({ channelKey })
-    setInterval(() => {
-        io.sockets.emit(channelKey, {msg:'Hello World'});
-    }, 3000);
+  const channelKeeey = Math.random().toString(36).substr(2)
+  res.json({ channelKeeey })
+        setInterval(() => {
+            console.log('Hello World')
+             io.sockets.emit(channelKeeey, {msg:"Hello WOrld !!"})
+        }, 300);
 
 })
 
-app.get('/about', (req, res) => {
-  res.send('This is my about route..... ')
+app.post('/send',async (req, res) => {
+
+    res.json({msg:'hello World'})
 })
 
 io.on("connection", (socket) => {
-    // socket.emit("hello", );
-  
-  });
-  
+  // socket.emit("hello", );
 
-// Export the Express API
-module.exports = app
+});
 
-
+httpServer.listen(4000,() => {
+  console.log('App Has Stared On Port 4000')
+})
