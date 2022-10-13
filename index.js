@@ -30,7 +30,7 @@ app.get('/', (req, res) => {
         setInterval(() => {
             console.log('Hello World')
              io.sockets.emit(channelKeeey, {msg:"Hello WOrld !!"})
-        }, 300);
+        }, 3000);
 
 })
 
