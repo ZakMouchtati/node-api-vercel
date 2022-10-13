@@ -25,11 +25,11 @@ app.use(cors());
 let client = []
 
 app.get('/', (req, res) => {
-  const channelKey = Math.random().toString(36).substr(2)
-  res.json({ channelKey })
+  const channelKeeey = Math.random().toString(36).substr(2)
+  res.json({ channelKeeey })
         setInterval(() => {
             console.log('Hello World')
-             io.sockets.emit(channelKey, {msg:"Hello WOrld !!"})
+             io.sockets.emit(channelKeeey, {msg:"Hello WOrld !!"})
         }, 300);
 
 })
