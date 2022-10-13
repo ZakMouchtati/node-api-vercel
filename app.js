@@ -11,7 +11,7 @@ const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
   cors: {
-    origin: "http://localhost:8000",
+    origin: "https://harmonious-fox-9a8089.netlify.app",
     // or with an array of origins
     //   origin: ["http://127.0.0.1:5500", "http://localhost:3000"],
     credentials: true
