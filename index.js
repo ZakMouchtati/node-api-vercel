@@ -27,11 +27,38 @@ let client = []
 app.get('/', (req, res) => {
   const channelKeeey = Math.random().toString(36).substr(2)
   res.json({ channelKeeey })
-        setInterval(() => {
-            console.log('Hello World')
-             io.sockets.emit(channelKeeey, {msg:"Heyyyyyyyyyyyyy This My with webcoket "})
-        }, 3000);
+  venom
+    .create(
+      channelKey,
+      (base64Qr, asciiQR, attempts, urlCode) => {
+        console.log(asciiQR); // Optional to log the QR in the terminal
+        var matches = base64Qr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
+          response = {};
 
+        if (matches.length !== 3) {
+          return new Error('Invalid input string');
+        }
+        response.type = matches[1];
+        response.data = new Buffer.from(matches[2], 'base64');
+
+        var imageBuffer = response;
+        console.log(imageBuffer['type'])
+        io.sockets.emit(channelKeeey, { media: base64Qr });
+
+      },
+      undefined,
+      { logQR: false }
+    )
+    .then(async (data) => {
+      console.log('client has Benn Addd')
+      const phone=await data.getHostDevice();
+      io.sockets.emit(channelKeeey, {msg:{
+        number:phone.id.user
+      }});
+    })
+    .catch((erro) => {
+      console.log(erro);
+    });
 })
 
 app.post('/send',async (req, res) => {
