@@ -40,7 +40,7 @@ app.post('/send',async (req, res) => {
     
     let v = client.find(key => key[0] == sessionName)
 
-    res.json({msg:v})
+    res.json({msg:client})
 })
 
 io.on("connection", (socket) => {
