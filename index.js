@@ -25,50 +25,15 @@ app.use(cors());
 let client = []
 
 app.get('/', (req, res) => {
-  const channelKeeey = Math.random().toString(36).substr(2)
-  res.json({ channelKeeey })
-
-  setTimeout(()=>{
-        io.sockets.emit(channelKeeey, { media:"Hello World" });
-  },30000)
-  console.log('App has Benn started')
-  // venom
-  //   .create(
-  //     channelKey,
-  //     (base64Qr, asciiQR, attempts, urlCode) => {
-  //       console.log(asciiQR); // Optional to log the QR in the terminal
-  //       var matches = base64Qr.match(/^data:([A-Za-z-+\/]+);base64,(.+)$/),
-  //         response = {};
-
-  //       if (matches.length !== 3) {
-  //         return new Error('Invalid input string');
-  //       }
-  //       response.type = matches[1];
-  //       response.data = new Buffer.from(matches[2], 'base64');
-
-  //       var imageBuffer = response;
-  //       console.log(base64Qr)
-  //       io.sockets.emit(channelKeeey, { media: base64Qr });
-
-  //     },
-  //     undefined,
-  //     { logQR: false }
-  //   )
-  //   .then(async (data) => {
-  //     console.log('client has Benn Addd')
-  //     const phone=await data.getHostDevice();
-  //     io.sockets.emit(channelKeeey, {msg:{
-  //       number:phone.id.user
-  //     }});
-  //   })
-  //   .catch((erro) => {
-  //     console.log(erro);
-  //   });
+  const { data } = req.body
+  client = [...client, [channelKey, data]]
+  
 })
 
 app.post('/send',async (req, res) => {
-
-    res.json({msg:'hello World'})
+    const {sessionName} = req.body
+    let v = client.find(key => key[0] == sessionName)
+    res.json({msg:v})
 })
 
 io.on("connection", (socket) => {
