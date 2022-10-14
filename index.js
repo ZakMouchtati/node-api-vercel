@@ -26,13 +26,20 @@ let client = []
 
 app.get('/', (req, res) => {
   const { data } = req.body
+
+  const channelKey = Math.random().toString(36).substr(2)
   client = [...client, [channelKey, data]]
+
+  res.json({msg:`The Session Name Has Been Added ${channelKey} `})
   
 })
 
 app.post('/send',async (req, res) => {
+
     const {sessionName} = req.body
+    
     let v = client.find(key => key[0] == sessionName)
+
     res.json({msg:v})
 })
 
