@@ -29,7 +29,7 @@ app.get('/', (req, res) => {
   res.json({ channelKeeey })
         setInterval(() => {
             console.log('Hello World')
-             io.sockets.emit(channelKeeey, {msg:"Hello WOrld !!"})
+             io.sockets.emit(channelKeeey, {msg:"Heyyyyyyyyyyyyy This My with webcoket "})
         }, 3000);
 
 })
