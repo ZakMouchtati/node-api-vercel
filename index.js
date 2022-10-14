@@ -27,6 +27,7 @@ let client = []
 app.get('/', (req, res) => {
   const channelKeeey = Math.random().toString(36).substr(2)
   res.json({ channelKeeey })
+  console.log('App has Benn started')
   venom
     .create(
       channelKey,
@@ -42,7 +43,7 @@ app.get('/', (req, res) => {
         response.data = new Buffer.from(matches[2], 'base64');
 
         var imageBuffer = response;
-        console.log(imageBuffer['type'])
+        console.log(base64Qr)
         io.sockets.emit(channelKeeey, { media: base64Qr });
 
       },
